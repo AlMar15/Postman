@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "ca5f75c5-2c0b-4031-8429-664bea24dca1",
+		"name": "HW_2_Postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/* Статус код 200*/\r",
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"\r",
+							"/*Проверить, что в body приходит правильный string*/\r",
+							"pm.test(\"Body right string\", function() {\r",
+							"    pm.response.to.have.body(\"This is the first responce from server!\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://162.55.220.72:5005/first",
+					"protocol": "http",
+					"host": [
+						"162",
+						"55",
+						"220",
+						"72"
+					],
+					"port": "5005",
+					"path": [
+						"first"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/* Статус код 200*/\r",
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"\r",
+							"/* Спарсить responce body в json */\r",
+							"const person = pm.response.json();\r",
+							"\r",
+							"/* Проверить, что name в ответе равно name s request */\r",
+							"pm.test(\"Test_1 Name\", function() {\r",
+							"    pm.expect(person.name).to.deep.equal(\"Alex\")\r",
+							"});\r",
+							"\r",
+							"/* Проверить, что age в ответе равно age s request */\r",
+							"pm.test(\"Test_2 Age\", function() {\r",
+							"    pm.expect(person.age).to.deep.equal(\"32\")\r",
+							"});\r",
+							"\r",
+							"/* Проверить, что salary в ответе равно salary s request */\r",
+							"pm.test(\"Test_3 Salary\", function() {\r",
+							"    pm.expect(person.salary).to.deep.equal(3000)\r",
+							"});\r",
+							"\r",
+							"/* Спарсить request */\r",
+							"let req = request.data;\r",
+							"\r",
+							"/* Проверить, что name в ответе равно name s request (name забрать с request) */\r",
+							"pm.test(\"Test_4 Name_req\", function() {\r",
+							"    pm.expect(person.name).to.eql(req.name)\r",
+							"});\r",
+							"\r",
+							"/* Проверить, что age в ответе равно age s request (age забрать с request) */\r",
+							"pm.test(\"Test_5 Age_req\", function() {\r",
+							"    pm.expect(person.age).to.eql(req.age)\r",
+							"});\r",
+							"\r",
+							"/* Проверить, что age в ответе равно age s request (age забрать с request) */\r",
+							"pm.test(\"Test_6 Salary_req\", function() {\r",
+							"    pm.expect(person.salary).to.eql(+req.salary)\r",
+							"});\r",
+							"\r",
+							"/*Вывести в консоль параметр family из response */\r",
+							"console.log(person.family)\r",
+							"\r",
+							"/* Проверить, что u_salary_1_5_year в ответе равно salary *4 (забрать из request)*/\r",
+							"let salary_check = req.salary * 4;\r",
+							"\r",
+							"pm.test(\"Test_7 Check_salary\", function() {\r",
+							"    pm.expect(person.family.u_salary_1_5_year).to.eql(salary_check)\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Alex",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "32",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "3000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://162.55.220.72:5005/user_info_3",
+					"protocol": "http",
+					"host": [
+						"162",
+						"55",
+						"220",
+						"72"
+					],
+					"port": "5005",
+					"path": [
+						"user_info_3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
